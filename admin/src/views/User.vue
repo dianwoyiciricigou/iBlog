@@ -1,6 +1,10 @@
 <template>
 <div>
-  <el-button type='primary'>新增用户</el-button>
+  <el-row>
+    <el-col :offset="22">
+      <el-button type='primary' @click="click">新增用户</el-button>
+    </el-col>
+  </el-row>
   <el-table
   :data="tableData"
   stripe
@@ -30,6 +34,8 @@
   </el-table-column>
   <el-table-column
     label="操作">
+    <el-button type="primary" icon="el-icon-edit" circle></el-button>
+    <el-button type="danger" icon="el-icon-delete" circle></el-button>
   </el-table-column>
   </el-table>
 </div>
@@ -69,6 +75,7 @@
   export default {
     data() {
       return {
+        model:{},
         tableData: [{
           id: '2016-05-02',
           username: '王小虎',
@@ -82,6 +89,13 @@
           role:'admin',
           state:'启用'
         }]
+      }
+    },
+    methods:{
+     async click () {
+        const res = await this.$http.get('user?id=hx')
+        console.log(res)
+        this.$router.replace('/admin/user')
       }
     }
   }
