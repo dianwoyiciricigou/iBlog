@@ -57,6 +57,9 @@
     },
     methdos:{
       
+    },
+    created() {
+      this.$http.get('/')
     }
   };
 </script>
