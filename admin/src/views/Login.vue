@@ -88,7 +88,7 @@
             let res = await this.$http.post('/login',params);
 
             localStorage.token = res.data.token
-            this.$router.push('/')
+            this.$router.push('/admin/user')
             this.$message.success("登录成功")
             
           } else {

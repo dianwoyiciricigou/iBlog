@@ -1,0 +1,187 @@
+//reset 
+
+* {
+    box-sizing: border-box;
+    outline: none;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    margin:0;
+    //参数三是大小粗细一边的字体
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5em;
+    background-color: #f1f1f1;
+}
+
+a {
+    text-decoration: none;
+    font-weight: 800;
+    color: rgba(8, 152, 241, 0.726);
+}
+
+
+
+//colors
+$colors:(
+    "primary":lightcyan,
+    "white":#fff,
+    "gray":#999,
+    "black":#000  
+);
+
+@each $colorKey,$color in $colors {
+    //文字颜色
+    .text-#{$colorKey} {
+        color: $color;
+    }
+
+    //背景颜色
+    .bg-#{$colorKey} {
+        color: $color;
+    }
+}
+
+//text 对齐方式
+
+//text-left => text-align:left
+@each $i in (left,right,center) {
+    .text-#{$i} {
+        text-align:$i
+    }
+}
+
+//font-size 字体尺寸
+$font-sizes:(
+    xs:0.75rem, //12
+    sm:0.875rem,    //14
+    md:1rem,    //16
+    lg:1.125rem,    //18
+    xl:1.25rem     //20
+);
+
+//fs-xs => font-size:0.75rem
+@each $sizeKey,$size in $font-sizes {
+    .fs-#{$sizeKey} {
+        font-size: $size;
+    }
+}
+
+
+//text-overflow
+.text-ellipsis {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+//flex
+$flex-jc:(
+    start:flex-start,
+    end:flex-end,
+    center:center,
+    between:space-between,
+    around:space-around
+);
+
+$flex-ai:(
+    start:flex-start,
+    end:flex-end,
+    center:center,
+    between:space-between,
+    around:space-around
+);
+
+.d-flex {
+    display: flex;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+.flex-row {
+    flex-direction: row;
+}
+.flex-1 {
+    flex:1
+}
+
+.flex-grow-1 {
+    flex-grow:1
+}
+
+//jc-center => justify-content:center
+@each $key,$value in $flex-jc {
+    .jc-#{$key} {
+        justify-content: $value;
+    }
+}
+
+@each $key,$value in $flex-ai {
+    .ai-#{$key} {
+        align-items: $value;
+    }
+}
+
+
+
+//spacing 
+//0-5 
+//.mt-1 => marging-top  .pd-2
+
+$spacing-types:(m:margin,p:padding);
+$spacing-directions:(t:top,r:right,b:bottom,l:left);
+$spacing-base-size: 1rem;
+$spacing-sizes:(
+    0:0,
+    1:0.25,
+    2:0.5,
+    3:1,
+    4:1.5,
+    5:3,
+    6:4
+);
+
+@each $typekey,$typeval in $spacing-types {
+
+    @each $sizeKey,$sizeVal in $spacing-sizes {
+        //.m-1 => margin:0.25rem
+        .#{$typekey}-#{$sizeKey} {
+            #{$typeval} : $sizeVal * $spacing-base-size
+        }
+    }
+
+
+    @each $sizeKey,$sizeVal in $spacing-sizes {
+        //.mx-1 => margin-left && margin-right
+        .#{$typekey}x-#{$sizeKey} {
+            #{$typeval}-left : $sizeVal * $spacing-base-size;
+            #{$typeval}-right : $sizeVal * $spacing-base-size
+        }
+
+        .#{$typekey}y-#{$sizeKey} {
+            #{$typeval}-top : $sizeVal * $spacing-base-size;
+            #{$typeval}-bottom : $sizeVal * $spacing-base-size
+        }
+    }
+
+
+    @each $directionKey,$directionVal in $spacing-directions {
+        @each $sizeKey,$sizeVal in $spacing-sizes {
+            //.mt-1 => marging-top:0.25rem  .pd-2
+            .#{$typekey}#{$directionKey}-#{$sizeKey} {
+                #{$typeval}-#{$directionVal} : $sizeVal * $spacing-base-size
+            }
+        }
+    }
+
+    //m => margin:0
+    .#{$typekey} {
+        #{$typeval}:0
+    }
+}

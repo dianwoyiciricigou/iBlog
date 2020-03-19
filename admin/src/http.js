@@ -4,8 +4,10 @@ import router from './router';
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 const http = axios.create({
-    baseURL:"http://localhost:3000/admin/api"
+    baseURL:process.env.VUE_APP_API_URL || '/admin/api'
+    //baseURL:"http://localhost:3000/admin/api"
 })
+
 
 http.interceptors.request.use(function (config) {
     config.headers.Authorization = "Bearer " + localStorage.token

@@ -1,7 +1,7 @@
 <template>
 <el-container style="height: 100vh; border: 1px solid #eee">
   <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-    <el-menu router :default-openeds="['1', '3']">
+    <el-menu router :default-openeds="['1']" default-active="/admin/user">
       <el-submenu index="1">
         <template slot="title"><i class="el-icon-message"></i>管理界面</template>
         <el-menu-item-group>
@@ -55,11 +55,15 @@
         tableData: Array(20).fill(item)
       }
     },
-    methdos:{
-      
+    methods:{
     },
-    created() {
-      this.$http.get('/')
+    async created() {
+      //在登录上之后在本地添加这个user的相关信息
+      const res = await this.$http.get('/admin')
+
+      if (res.data._id) {
+        localStorage.uid = res.data._id
+      }
     }
   };
 </script>
